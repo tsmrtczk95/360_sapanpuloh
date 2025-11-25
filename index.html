@@ -46,6 +46,8 @@
         animation__fade="property: component.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
         animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade">
         </a-sky>
+      <!-- Navigation Hotspot -->
+      <a-sphere id="hotspot-1" position="2 1 -3" radius="0.5" color="#FF0000"></a-sphere>
       <!-- Pass image sources to the template. -->
       <a-entity id="links" layout="type: line; margin: 1.5" position="-1.5 0.5 -4" border="2px">
         <a-entity template="src: #link" data-src="#ext-img" data-thumb="#ext-thumb"></a-entity>
