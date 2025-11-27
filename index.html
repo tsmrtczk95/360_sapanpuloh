@@ -1,60 +1,35 @@
 <html>
   <head>
+    <meta charset="utf-8">
+    <title>Mukah 360&deg; - Sapan Puloh</title>
+    <meta name="description" content="360&deg; Image - A-Frame">
     <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-layout-component@5.x.x/dist/aframe-layout-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script> -->
-    
-    <script id="link" type="text/html">
-        <a-entity class="link"
-          geometry="primitive: plane; height: 0.9 width: 1.2"
-          material="shader: flat; src: ${thumb}"
-          sound="on: click; src: #click-sound"
-          event-set__mouseenter="scale: 1.2 1.2 1"
-          event-set__mouseleave="scale: 1 1 1"
-          event-set__click="_target: #image-360; _delay: 300; material.src: ${src}">
-          proxy-event="event: click; to: #image-360; as: fade></a-entity>
-    </script>
+    <script src="scripts/portal.js"></script>
+    <script src="scripts/visual_effects.js"></script>
+    <script src="scripts/portal_label.js"></script>
   </head>
   <body>
     <a-scene>
       <a-assets>
+<!-- AUDIO. -->
         <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
-        <!-- Images Custom. -->
-        <img id="ext-img" src="asset/sp_exterior.jpeg">
-        <img id="int-img" src="asset/sp_interior.jpeg">
-        <img id="main-img" src="asset/sp_mainroom.jpeg">
-        <!-- Thumbnails -->
-        <img id="ext-thumb" src="asset/thumb_exterior.jpeg">
-        <img id="int-thumb" src="asset/thumb_interior.jpeg">
-        <img id="main-thumb" src="asset/thumb_mainroom.jpeg">
-
-        <script id="link" type="text/html">
-          <a-entity class="link"
-          geometry="primitive: plane; height: 0.9 width: 1.2"
-          material="shader: flat; src: ${thumb}"
-          sound="on: click; src: #click-sound"
-          event-set__mouseenter="scale: 1.2 1.2 1"
-          event-set__mouseleave="scale: 1 1 1"
-          event-set__click="_target: #image-360; _delay: 300; material.src: ${src}">
-          proxy-event="event: click; to: #image-360; as: fade></a-entity>
-        </script>
+<!-- IMAGE. -->
+        <img id="360img" src="asset/sp_exterior.jpeg">
+<!-- THUMBNAILS. -->
+        <img id="thumb1" src="asset/sp_interior.jpeg">
       </a-assets>
-      <!-- 360-degree image. -->
-      <a-sky id="image-360" src="#ext-img" rotation="0 0 0"
+<!-- MAIN 360 IMAGE. -->
+      <a-sky id="image-360" src="#360img" rotation="0 0 0"
         animation__fade="property: component.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
         animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade">
         </a-sky>
-      <!-- Navigation Hotspot -->
-      <a-sphere id="hotspot-1" position="2 1 -3" radius="0.5" color="#FF0000"></a-sphere>
-      <!-- Pass image sources to the template. -->
-      <a-entity id="links" layout="type: line; margin: 1.5" position="-1.5 0.5 -4" border="2px">
-        <a-entity template="src: #link" data-src="#ext-img" data-thumb="#ext-thumb"></a-entity>
-        <a-entity template="src: #link" data-src="#int-img" data-thumb="#int-thumb"></a-entity>
-        <a-entity template="src: #link" data-src="#main-img" data-thumb="#main-thumb"></a-entity>
-      </a-entity>
-      <!-- Camera + Cursor. -->
+<!-- PORTALS. -->
+      <a-sphere position="1 1 4" radius="0.5" src="#thumb1" page-portal="page: scenes/scene2.html" portal-glow="color: #00e5ff; intensity: 1.2"
+        portal-label="text: Enter; offset: 0 0.8 0; textScale: 1.3" sound="on: click; src: #click-sound"
+        animation__hover="property: scale; startEvents: mouseenter; to: 1.2 1.2 1.2; dur: 200"
+        animation__leave="property: scale; startEvents: mouseleave; to: 1 1 1; dur: 200">
+      </a-sphere>
+<!-- CAMERA + CURSOR. -->
       <a-camera>
         <a-cursor
           id="cursor"
